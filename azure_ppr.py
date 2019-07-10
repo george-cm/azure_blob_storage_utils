@@ -2,6 +2,7 @@
 from azure.storage.blob import BlockBlobService, PublicAccess 
 import csv
 from urllib.parse import quote
+from datetime import datetime
 
 def main():
   creds = [
@@ -20,7 +21,7 @@ def main():
       'container_name': 'software'
     }
   ]
-
+  todays_date = datetime.now().strftime('%Y%m%d%H%M%S')
   for blob_creds in creds:
     # Create the BlockBlockService that is used to call the Blob service for the storage account
     block_blob_service = BlockBlobService(account_name=blob_creds['storage_account_name'], account_key=blob_creds['storage_account_key'])
@@ -31,7 +32,7 @@ def main():
 
     # Set the permission so the blobs are public.
     block_blob_service.set_container_acl(container_name, public_access=PublicAccess.Container)
-    with open(f"{blob_creds['storage_account_name']}_{blob_creds['container_name']}.csv", 'w', encoding='utf-8-sig', newline='') as csvout:
+    with open(f"{blob_creds['storage_account_name']}_{blob_creds['container_name']}_{todays_date}.csv", 'w', encoding='utf-8-sig', newline='') as csvout:
       writer = csv.writer(
         csvout, delimiter=',',
         quotechar='"',
