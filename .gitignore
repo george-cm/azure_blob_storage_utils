@@ -4,3 +4,7 @@ dist
 __pycache__
 *.csv
 *.spec
+**/secrets*.py
+*.zip
+*.exe
+*.log
