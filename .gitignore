@@ -1,6 +1,7 @@
 env
 build
 dist
+.vscode
 __pycache__
 *.csv
 *.spec
